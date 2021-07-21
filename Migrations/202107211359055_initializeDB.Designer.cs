@@ -13,7 +13,7 @@ namespace CRUD.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202107201347138_initializeDB"; }
+            get { return "202107211359055_initializeDB"; }
         }
         
         string IMigrationMetadata.Source

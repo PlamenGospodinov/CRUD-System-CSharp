@@ -11,7 +11,7 @@ namespace CRUD.Models
     {
         public MyDBContext() : base("MyDBConnectionString")
         {
-
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MyDBContext,Migrations.Configuration>("MyDBConnectionString"));
         }
 
         public DbSet<Detail> Details { get; set; }

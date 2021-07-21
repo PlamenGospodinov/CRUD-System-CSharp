@@ -15,7 +15,7 @@
                         FName = c.String(),
                         LName = c.String(),
                         Age = c.Int(nullable: false),
-                        Address = c.Int(nullable: false),
+                        Address = c.String(),
                         DOB = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);

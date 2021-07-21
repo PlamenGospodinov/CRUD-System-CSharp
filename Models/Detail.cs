@@ -14,7 +14,7 @@ namespace CRUD.Models
         public String FName { get; set; }
         public String LName { get; set; }
         public int Age { get; set; }
-        public int Address { get; set; }
+        public String Address { get; set; }
         public DateTime DOB { get; set; }
 
     }

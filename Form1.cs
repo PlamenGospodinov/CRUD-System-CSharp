@@ -32,5 +32,14 @@ namespace CRUD
                 dataGridView1.DataSource = MyEntities.Details.ToList<Detail>();
             }
         }
+
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            MyDetails.FName = txtFName.Text;
+            MyDetails.LName = txtLName.Text;
+            MyDetails.Age = Convert.ToInt32(txtAge.Text);
+            MyDetails.Address = txtAddress.Text;
+            MyDetails.DOB = Convert.ToDateTime(dtDOB.Text);
+        }
     }
 }

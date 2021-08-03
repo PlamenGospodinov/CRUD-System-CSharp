@@ -46,7 +46,7 @@ namespace CRUD
                 myDbEntities.Details.Add(MyDetails);
                 myDbEntities.SaveChanges();
             }
-
+            MessageBox.Show("Information has been saved", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             PopGridView();
         }
 
@@ -62,7 +62,7 @@ namespace CRUD
                 myDbEntities.Entry(MyDetails).State = System.Data.Entity.EntityState.Modified;
                 myDbEntities.SaveChanges();
             }
-
+            MessageBox.Show("Information has been updated", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
             PopGridView();
         }
 
@@ -90,17 +90,23 @@ namespace CRUD
 
         private void deleteBtn_Click(object sender, EventArgs e)
         {
-            using(var myDbEntities = new MyModel())
+            if (MessageBox.Show("Are you sure you want to delete this?", "Please confirm!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                var entry = myDbEntities.Entry(MyDetails);
-                if(entry.State == EntityState.Detached)
+
+
+                using (var myDbEntities = new MyModel())
                 {
-                    myDbEntities.Details.Attach(MyDetails);
-                
-                    myDbEntities.Details.Remove(MyDetails);
-                    myDbEntities.SaveChanges();
-                    PopGridView();
-                    ClearFields();
+                    var entry = myDbEntities.Entry(MyDetails);
+                    if (entry.State == EntityState.Detached)
+                    {
+                        myDbEntities.Details.Attach(MyDetails);
+
+                        myDbEntities.Details.Remove(MyDetails);
+                        myDbEntities.SaveChanges();
+                        PopGridView();
+                        ClearFields();
+
+                    }
                 }
             }
         }

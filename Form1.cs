@@ -51,6 +51,44 @@ namespace CRUD
 
         private void updateBtn_Click(object sender, EventArgs e)
         {
+            MyDetails.FName = txtFName.Text;
+            MyDetails.LName = txtLName.Text;
+            MyDetails.Age = Convert.ToInt32(txtAge.Text);
+            MyDetails.Address = txtAddress.Text;
+            MyDetails.DOB = Convert.ToDateTime(dtDOB.Text);
+            using (var myDbEntities = new MyModel())
+            {
+                myDbEntities.Entry(MyDetails).State = System.Data.Entity.EntityState.Modified;
+                myDbEntities.SaveChanges();
+            }
+
+            PopGridView();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(dataGridView1.CurrentRow.Index != -1)
+            {
+                MyDetails.ID = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                using(var myDbEntities = new MyModel())
+                {
+                    MyDetails = myDbEntities.Details.Where(x => x.ID == MyDetails.ID).FirstOrDefault();
+                    txtFName.Text = MyDetails.FName;
+                    txtLName.Text = MyDetails.LName;
+                    txtAge.Text = MyDetails.Age.ToString();
+                    txtAddress.Text = MyDetails.Address;
+                    dtDOB.Text = MyDetails.DOB.ToString();
+                }
+            }
+        }
+
+        private void deleteBtn_Click(object sender, EventArgs e)
+        {
 
         }
     }

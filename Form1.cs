@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Entity;
 using CRUD.Entities;
 
 namespace CRUD
@@ -89,7 +90,28 @@ namespace CRUD
 
         private void deleteBtn_Click(object sender, EventArgs e)
         {
+            using(var myDbEntities = new MyModel())
+            {
+                var entry = myDbEntities.Entry(MyDetails);
+                if(entry.State == EntityState.Detached)
+                {
+                    myDbEntities.Details.Attach(MyDetails);
+                
+                    myDbEntities.Details.Remove(MyDetails);
+                    myDbEntities.SaveChanges();
+                    PopGridView();
+                    ClearFields();
+                }
+            }
+        }
 
+        void ClearFields()
+        {
+            txtFName.Text = "";
+            txtLName.Text = "";
+            txtAge.Text = "";
+            txtAddress.Text = "";
+            dtDOB.Text = DateTime.Now.ToString();
         }
     }
 }

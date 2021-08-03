@@ -40,6 +40,18 @@ namespace CRUD
             MyDetails.Age = Convert.ToInt32(txtAge.Text);
             MyDetails.Address = txtAddress.Text;
             MyDetails.DOB = Convert.ToDateTime(dtDOB.Text);
+            using(var myDbEntities = new MyModel())
+            {
+                myDbEntities.Details.Add(MyDetails);
+                myDbEntities.SaveChanges();
+            }
+
+            PopGridView();
+        }
+
+        private void updateBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

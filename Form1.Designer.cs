@@ -165,6 +165,7 @@ namespace CRUD
             this.updateBtn.TabIndex = 14;
             this.updateBtn.Text = "Update";
             this.updateBtn.UseVisualStyleBackColor = false;
+            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
             // dataGridView1
             // 

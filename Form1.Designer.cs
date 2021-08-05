@@ -132,6 +132,7 @@ namespace CRUD
             this.dtDOB.Name = "dtDOB";
             this.dtDOB.Size = new System.Drawing.Size(174, 22);
             this.dtDOB.TabIndex = 9;
+            this.dtDOB.ValueChanged += new System.EventHandler(this.dtDOB_ValueChanged);
             // 
             // saveBtn
             // 
@@ -192,6 +193,7 @@ namespace CRUD
             this.cancelBtn.TabIndex = 16;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = false;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
             // refreshBtn
             // 
@@ -204,6 +206,7 @@ namespace CRUD
             this.refreshBtn.TabIndex = 17;
             this.refreshBtn.Text = "Refresh";
             this.refreshBtn.UseVisualStyleBackColor = false;
+            this.refreshBtn.Click += new System.EventHandler(this.refreshBtn_Click);
             // 
             // Form1
             // 

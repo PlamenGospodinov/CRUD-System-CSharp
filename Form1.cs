@@ -21,20 +21,20 @@ namespace CRUD
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
-            PopGridView();
+            await PopGridView();
         }
 
-        private void PopGridView()
+        private async Task PopGridView()
         {
             using(var MyEntities = new MyModel())
             {
-                dataGridView1.DataSource = MyEntities.Details.ToList<Detail>();
+                dataGridView1.DataSource = await MyEntities.Details.ToListAsync<Detail>();
             }
         }
 
-        private void saveBtn_Click(object sender, EventArgs e)
+        private async void saveBtn_Click(object sender, EventArgs e)
         {
             MyDetails.FName = txtFName.Text;
             MyDetails.LName = txtLName.Text;
@@ -44,13 +44,13 @@ namespace CRUD
             using(var myDbEntities = new MyModel())
             {
                 myDbEntities.Details.Add(MyDetails);
-                myDbEntities.SaveChanges();
+                await myDbEntities.SaveChangesAsync();
             }
             MessageBox.Show("Information has been saved", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            PopGridView();
+            await PopGridView();
         }
 
-        private void updateBtn_Click(object sender, EventArgs e)
+        private async void updateBtn_Click(object sender, EventArgs e)
         {
             MyDetails.FName = txtFName.Text;
             MyDetails.LName = txtLName.Text;
@@ -60,10 +60,10 @@ namespace CRUD
             using (var myDbEntities = new MyModel())
             {
                 myDbEntities.Entry(MyDetails).State = System.Data.Entity.EntityState.Modified;
-                myDbEntities.SaveChanges();
+                await myDbEntities.SaveChangesAsync();
             }
             MessageBox.Show("Information has been updated", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            PopGridView();
+            await PopGridView();
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -88,7 +88,7 @@ namespace CRUD
             }
         }
 
-        private void deleteBtn_Click(object sender, EventArgs e)
+        private async void deleteBtn_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to delete this?", "Please confirm!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -102,8 +102,8 @@ namespace CRUD
                         myDbEntities.Details.Attach(MyDetails);
 
                         myDbEntities.Details.Remove(MyDetails);
-                        myDbEntities.SaveChanges();
-                        PopGridView();
+                        await myDbEntities.SaveChangesAsync();
+                        await PopGridView();
                         ClearFields();
 
                     }
@@ -118,6 +118,22 @@ namespace CRUD
             txtAge.Text = "";
             txtAddress.Text = "";
             dtDOB.Text = DateTime.Now.ToString();
+        }
+
+        private void dtDOB_ValueChanged(object sender, EventArgs e)
+        {
+            int dateDiff = DateTime.Now.Year - dtDOB.Value.Year;
+            txtAge.Text = dateDiff.ToString();
+        }
+
+        private async void refreshBtn_Click(object sender, EventArgs e)
+        {
+            await PopGridView();
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            ClearFields();
         }
     }
 }
